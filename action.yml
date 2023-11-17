@@ -1,0 +1,37 @@
+name: "Sftp Publish"
+description: "Publish files using sftp with a private key"
+inputs:
+  username:
+    description: "the username"
+    required: true
+  server:
+    description: "the ftp server address"
+    required: true
+  port:
+    description: "the sftp server port, defaults to 22"
+    required: true
+    default: "22"
+  local-path:
+    description: "the local path that contains files to publish (without tailing slash)"
+    required: true
+  remote-path:
+    description: "the remote path as the publishing target (without tailing slash)"
+    required: true
+  private-key:
+    description: "the private key"
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.username }}
+    - ${{ inputs.server }}
+    - ${{ inputs.port }}
+    - ${{ inputs.local-path }}
+    - ${{ inputs.remote-path }}
+    - ${{ inputs.private-key }}
+
+branding:
+  icon: "upload-cloud"
+  color: "green"
